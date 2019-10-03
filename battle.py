@@ -28,11 +28,11 @@ class Battle:
             if inp == "q":
                 break
             while self.in_progress():
-                log.addstr('\n')
+                inp = log.getkey()
+                if inp == "q":
+                    break
 
-                statuses.clear()
-                statuses.addstr(0, 0, self.status())
-                statuses.refresh()
+                log.addstr('\n')
 
                 for c in self.combatants:
                     if not c.has_brain():
@@ -66,5 +66,8 @@ class Battle:
                         if not target.is_alive():
                             log.addstr(f"{target.name} was destroyed!\n")
                     log.refresh()
+                statuses.clear()
+                statuses.addstr(0, 0, self.status())
+                statuses.refresh()
             statuses.addstr(f"\n\n{[r for r in self.combatants if r.is_alive()][0]} wins!")
             statuses.refresh()
