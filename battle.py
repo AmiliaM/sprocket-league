@@ -42,6 +42,5 @@ class Battle:
                     print(f"Robot {c.name} battered {target.name}'s {target_part.name} with {weapon.name}")
                     if target_part.is_destroyed():
                         print(f"{target.name}'s {target_part.name} was destroyed!")
-                    print(f"{target.name} chassis is", target._parts_of_type("chassis"), "and health is", target._parts_of_type("chassis")[0].health)
                     if not target.is_alive():
                         print(f"{target.name} was destroyed!")

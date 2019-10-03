@@ -1,12 +1,12 @@
 import util
 
 class Robot:
-    def __init__(self, name):
+    def __init__(self, name, parts=[]):
         self.name = name
-        self.parts = []
+        self.parts = parts
 
-    def add_parts(self, *parts):
-        self.parts.extend(parts)
+    def add_parts(self, *ps):
+        self.parts.extend(ps)
 
     def is_valid(self):
         if  (len(self._parts_of_type('chassis')) == 1 and
@@ -16,13 +16,15 @@ class Robot:
         return False
 
     def is_alive(self):
-        return self._parts_of_type('chassis')[0].health > 0
+        return self.is_valid() and self._parts_of_type('chassis')[0].health > 0
 
     def has_power(self):
         return any(map(lambda p: not p.is_destroyed(), self._parts_of_type('power')))
 
     def has_brain(self):
-        return not self._parts_of_type('controller')[0].is_destroyed() and self.has_power()
+        return (self.is_valid() and
+                not self._parts_of_type('controller')[0].is_destroyed() and
+                self.has_power())
 
     def health(self):
         return sum(map(lambda p: p.health, self.parts))

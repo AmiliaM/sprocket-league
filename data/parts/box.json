@@ -1,6 +1,6 @@
 {
     "name": "Cardboard box",
-    "health": 30,
+    "health": 7,
     "type": "chassis",
     "size": 20
 }
