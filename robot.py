@@ -19,6 +19,13 @@ class Robot:
     def is_alive(self):
         return self.is_valid() and self._parts_of_type('chassis')[0].health > 0
 
+    def alive_reason(self):
+        if not self.is_valid:
+            return (False, "because it was invalid")
+        if not self._parts_of_type('chassis')[0].health > 0:
+            return (False, "because it's chassis was destroyed")
+        return (True, "")
+
     def has_power(self):
         return any(map(lambda p: not p.is_destroyed(), self._parts_of_type('power')))
 

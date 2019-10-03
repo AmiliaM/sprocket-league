@@ -65,8 +65,9 @@ class Battle:
                     log.addstr(f"Robot {c.name} battered {target.name}'s {target_part.name} with {weapon.name}\n")
                     if target_part.is_destroyed():
                         log.addstr(f"{target.name}'s {target_part.name} was destroyed!\n", curses.color_pair(1))
-                    if not target.is_alive():
-                        log.addstr(f"{target.name} was destroyed!\n", curses.color_pair(1))
+                    living, reason = target.alive_reason()
+                    if not living:
+                        log.addstr(f"{target.name} died because {reason}!\n", curses.color_pair(1))
                 log.refresh()
             statuses.clear()
             statuses.addstr(0, 0, self.status())
