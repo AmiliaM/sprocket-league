@@ -1,4 +1,5 @@
 import util
+import random
 
 class Robot:
     def __init__(self, name, parts=[]):
@@ -36,10 +37,18 @@ class Robot:
         return [x.size/self.size() for x in self.parts]
 
     def pick_alive_part(self, typ):
-        return util.choice([p for p in self._parts_of_type(typ) if not p.is_destroyed()])
+        if typ != 'any':
+            return util.choice([p for p in self._parts_of_type(typ) if not p.is_destroyed()])
+        return random.choices(self.alive_parts(), weights = list(map(lambda x: x.size, self.alive_parts())))[0]
 
     def alive_parts(self):
         return [p for p in self.parts if not p.is_destroyed()]
+
+    def status(self):
+        s = f"Robot {self.name}: {self.health()} hp\n"
+        for p in self.parts:
+            s += p.status()
+        return s
 
     def _parts_of_type(self, typ):
         return [p for p in self.parts if p.typ == typ]

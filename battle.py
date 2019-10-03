@@ -1,46 +1,70 @@
 from sys import stdin
 import random
+import curses
+import time
 
 class Battle:
     def __init__(self, *robots):
         self.combatants = set(robots)
 
-    def show_status(self):
-        print(f"There are {len(self.combatants)} combatants:")
+    def status(self):
+        s = f"There are {len(self.combatants)} combatants:\n"
         for r in self.combatants:
-            print(r)
+            s += r.status()
+            s += '\n'
+        return s
 
     def in_progress(self):
         return sum(map(int, map(lambda x: x.is_alive(), self.combatants))) > 1
 
-    def run(self):
-        while self.in_progress():
-            #self.show_status()
-            stdin.readline()
-            for c in self.combatants:
-                if not c.has_brain():
-                    print(f"Robot {c.name} is unable to move!")
-                    continue
-                candidates = self.combatants.copy()
-                candidates.remove(c)
-                target = random.choice(list(candidates))
-                weapon = c.pick_alive_part('weapon')
-                if weapon is None:
-                    print(f"Robot {c.name} has no weapons!")
-                    continue
-                target_candidate_parts = target.alive_parts()
-                target_part = random.choices(target_candidate_parts, weights = list(map(lambda x: x.size, target_candidate_parts)))[0]
-                damage = random.randint(0, 5)
-                hit_chance = 100
-                if target_part.size < 5:
-                    hit_chance = 80
-                hit = random.randint(0, 100)
-                if hit > hit_chance:
-                    print(f"Robot {c.name} tries to attack {target.name}'s {target_part.name} with {weapon.name} but misses!")
-                else:
-                    target_part.take_damage(damage)
-                    print(f"Robot {c.name} battered {target.name}'s {target_part.name} with {weapon.name}")
-                    if target_part.is_destroyed():
-                        print(f"{target.name}'s {target_part.name} was destroyed!")
-                    if not target.is_alive():
-                        print(f"{target.name} was destroyed!")
+    def run(self, stdscr):
+        curses.curs_set(False)
+        log = curses.newwin(curses.LINES, curses.COLS//5, 0, (curses.COLS-1)-curses.COLS//5)
+
+        statuses = curses.newwin(curses.LINES//2, curses.COLS//2, 0, 0)
+
+        while True:
+            inp = log.getkey()
+            if inp == "q":
+                break
+            while self.in_progress():
+                log.addstr('\n')
+
+                statuses.clear()
+                statuses.addstr(0, 0, self.status())
+                statuses.refresh()
+
+                for c in self.combatants:
+                    if not c.has_brain():
+                        log.addstr(f"Robot {c.name} is unable to move!\n")
+                        continue
+
+                    weapon = c.pick_alive_part('weapon')
+                    if weapon is None:
+                        log.addstr(f"Robot {c.name} has no weapons!\n")
+                        continue
+
+                    candidates = self.combatants.copy()
+                    candidates.remove(c)
+                    target = random.choice(list(candidates))
+
+                    target_part = target.pick_alive_part('any')
+
+                    damage = random.randint(0, 5)
+                    hit_chance = 100
+                    if target_part.size < 5:
+                        hit_chance = 80
+                    hit = random.randint(0, 100)
+
+                    if hit > hit_chance:
+                        log.addstr(f"Robot {c.name} tries to attack {target.name}'s {target_part.name} with {weapon.name} but misses!\n")
+                    else:
+                        target_part.take_damage(damage)
+                        log.addstr(f"Robot {c.name} battered {target.name}'s {target_part.name} with {weapon.name}\n")
+                        if target_part.is_destroyed():
+                            log.addstr(f"{target.name}'s {target_part.name} was destroyed!\n")
+                        if not target.is_alive():
+                            log.addstr(f"{target.name} was destroyed!\n")
+                    log.refresh()
+            statuses.addstr(f"\n\n{[r for r in self.combatants if r.is_alive()][0]} wins!")
+            statuses.refresh()

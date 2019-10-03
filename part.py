@@ -20,6 +20,9 @@ class Part:
     def is_destroyed(self):
         return self.health < 1
 
+    def status(self):
+        return f"{self.typ} {self.name}: {self.health} hp\n"
+
     def __str__(self):
         return f"{self.typ}: {self.name} with {self.health} hp"
 
