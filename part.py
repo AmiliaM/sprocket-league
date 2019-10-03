@@ -20,14 +20,11 @@ class Part:
     def is_destroyed(self):
         return self.health < 1
 
-    def health_status(self):
-        if self.health > 0:
-            return f": {self.health} hp"
-        else:
-            return "is broken"
-
     def status(self):
-        return f"{self.typ} {self.name} {self.health_status()}\n"
+        if self.health > 0:
+            return f"{self.typ} {self.name}: {self.health} hp\n"
+        else:
+            return f"{self.typ} {self.name} is broken\n"
 
     def __str__(self):
         return f"{self.typ}: {self.name} with {self.health} hp"

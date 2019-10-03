@@ -27,7 +27,7 @@ class Battle:
         statuses.addstr(0, 0, self.status())
         statuses.refresh()
         inp = log.getkey()
-        if inp == "q":
+        if inp == 'q':
             return
 
         while self.in_progress():
@@ -72,11 +72,12 @@ class Battle:
             statuses.addstr(0, 0, self.status())
             statuses.refresh()
             inp = log.getkey()
-            if inp == "q":
+            if inp == 'q':
                 break
         statuses.addstr(f"\n\n{[r for r in self.combatants if r.is_alive()][0].name} wins!\n\n", curses.color_pair(2))
-        statuses.addstr("Press any key to exit")
+        statuses.addstr("Press q to exit")
         statuses.refresh()
         while True:
             inp = log.getkey()
-            break
+            if inp == 'q':
+                break

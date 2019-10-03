@@ -45,7 +45,7 @@ class Robot:
         return [p for p in self.parts if not p.is_destroyed()]
 
     def status(self):
-        s = f"Robot {self.name}: {self.health()} hp\n"
+        s = f"Robot {self.name}:\n"
         for p in self.parts:
             s += p.status()
         return s
