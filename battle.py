@@ -35,6 +35,9 @@ class Battle:
                 log.addstr('\n')
 
                 for c in self.combatants:
+                    if not c.is_alive():
+                        continue
+
                     if not c.has_brain():
                         log.addstr(f"Robot {c.name} is unable to move!\n")
                         continue
@@ -69,5 +72,5 @@ class Battle:
                 statuses.clear()
                 statuses.addstr(0, 0, self.status())
                 statuses.refresh()
-            statuses.addstr(f"\n\n{[r for r in self.combatants if r.is_alive()][0]} wins!")
+            statuses.addstr(f"\n\n{[r for r in self.combatants if r.is_alive()][0].name} wins!")
             statuses.refresh()
