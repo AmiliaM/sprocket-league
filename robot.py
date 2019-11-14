@@ -1,5 +1,5 @@
-import util
 import random
+import util
 
 class Robot:
     def __init__(self, name, parts=[]):
@@ -59,7 +59,6 @@ class Robot:
 
     def _parts_of_type(self, typ):
         return [p for p in self.parts if p.typ == typ]
-        #return filter(lambda p: p.typ == typ, self.parts)
 
     def __str__(self):
         return f"Robot {self.name} with {self.health()} hp and size {self.size()}"
