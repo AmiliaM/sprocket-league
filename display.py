@@ -1,5 +1,6 @@
 import curses
 
+
 def init():
     curses.curs_set(False)
     curses.use_default_colors()

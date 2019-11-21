@@ -1,10 +1,11 @@
 import random
 
+
 class Grid:
     def __init__(self, size=(10, 10)):
-        self.nil = '-'
+        self.nil = "-"
         self.size = size
-        self.grid = [' '] * size[0]
+        self.grid = [" "] * size[0]
         self.grid = [[self.nil] * size[1] for x in self.grid]
         self.objects = {}
 
@@ -16,22 +17,23 @@ class Grid:
         return True
 
     def add_rand(self, a):
-        if len(self.objects) >= self.size[0]*self.size[1]:
+        if len(self.objects) >= self.size[0] * self.size[1]:
             return False
-        points = [(x, y)
-                  for x in range(self.size[0])
-                  for y in range(self.size[1])
-                  if self.grid[x][y] == self.nil
-                ]
+        points = [
+            (x, y)
+            for x in range(self.size[0])
+            for y in range(self.size[1])
+            if self.grid[x][y] == self.nil
+        ]
         print(points)
         return self.add(a, *random.choice(points))
 
     def draw(self):
-        s = ''
+        s = ""
         for x in self.grid:
             for y in x:
-                s += y + ' '
-            s += '\n'
+                s += y + " "
+            s += "\n"
         return s
 
     def move(self, a, dx, dy):
@@ -59,8 +61,7 @@ class Grid:
         return
 
     def get(self, x, y):
-        if (x >= self.size[0] or x < 0 or
-            y >= self.size[1] or y < 0):
+        if x >= self.size[0] or x < 0 or y >= self.size[1] or y < 0:
             return False
         return self.grid[x][y]
 

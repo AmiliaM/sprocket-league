@@ -1,6 +1,7 @@
 import json
 import os
 
+
 class Part:
     def __init__(self, name, health, typ, size):
         self.name = name
@@ -12,7 +13,7 @@ class Part:
     def from_file(cls, file):
         with open(file) as f:
             r = json.load(f)
-        return Part(r['name'], r['health'], r['type'], r['size'])
+        return Part(r["name"], r["health"], r["type"], r["size"])
 
     def take_damage(self, damage):
         self.health -= damage
@@ -32,10 +33,11 @@ class Part:
     def __repr__(self):
         return str(self)
 
+
 def find_part_files(path):
     parts = []
     for root, _, files in os.walk(path):
         for f in files:
-            if os.path.splitext(f)[1] == '.json':
+            if os.path.splitext(f)[1] == ".json":
                 parts.append(os.path.join(root, f))
     return parts
