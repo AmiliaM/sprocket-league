@@ -2,8 +2,6 @@ import curses
 import display
 import grid
 import random
-from sys import stdin
-
 
 class Battle:
     def __init__(self, *robots):
@@ -56,10 +54,17 @@ class Battle:
                 if not c.is_alive():
                     continue
 
-                if not c.has_brain():
-                    log.addstr(f"Robot {c.name} is unable to move!\n", curses.color_pair(1))
+                if not c.brain():
+                    log.addstr(f"Robot {c.name} can't take a turn!\n", curses.color_pair(1))
                     continue
 
+                # Process movement
+                if not c.locomotions():
+                    log.addstr(f"Robot {c.name} is unable to move!\n", curses.color_pair(1))
+                else:
+                    g.move(c.name, random.randint(-1, 1), random.randint(-1, 1))
+
+                # Choose weapon
                 weapon = c.pick_alive_part('weapon')
                 if weapon is None:
                     log.addstr(f"Robot {c.name} has no weapons!\n", curses.color_pair(1))
@@ -74,9 +79,9 @@ class Battle:
 
                 # Calculate damage
                 damage = random.randint(0, 5)
-                hit_chance = 100
 
                 # Calculate hit chance
+                hit_chance = 100
                 if target_part.size < 5:
                     hit_chance = 80
                 hit = random.randint(0, 100)
