@@ -2,7 +2,6 @@ import random
 
 
 def choice(seq):
-    if len(seq) == 0:
+    if not seq:
         return None
-    else:
-        return random.choice(seq)
+    return random.choice(seq)

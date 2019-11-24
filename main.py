@@ -1,6 +1,8 @@
-import battle
 from copy import deepcopy
+
 import curses
+
+import battle
 import part
 import robot
 

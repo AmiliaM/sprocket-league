@@ -18,7 +18,7 @@ class Robot:
         if (
             len(self._parts_of_type("chassis")) == 1
             and len(self._parts_of_type("controller")) == 1
-            and len(self._parts_of_type("power")) > 0
+            and self._parts_of_type("power")
         ):
             return True
         return False
@@ -50,11 +50,7 @@ class Robot:
         return False
 
     def locomotions(self):
-        if (
-            self.powers()
-            and self.brain()
-            and len(self._parts_of_type("locomotion")) > 0
-        ):
+        if self.powers() and self.brain() and self._parts_of_type("locomotion"):
             return self._parts_of_type("locomotion")
         return False
 

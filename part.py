@@ -24,8 +24,7 @@ class Part:
     def status(self):
         if self.health > 0:
             return f"{self.typ} {self.name}: {self.health} hp\n"
-        else:
-            return f"{self.typ} {self.name} is broken\n"
+        return f"{self.typ} {self.name} is broken\n"
 
     def __str__(self):
         return f"{self.typ}: {self.name} with {self.health} hp"

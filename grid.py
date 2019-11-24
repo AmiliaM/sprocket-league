@@ -71,6 +71,8 @@ class Grid:
             self[newpos] = a[0]
             self.objects[a] = newpos
 
+        return True
+
     def get(self, x, y):
         if x >= self.size[0] or x < 0 or y >= self.size[1] or y < 0:
             return False

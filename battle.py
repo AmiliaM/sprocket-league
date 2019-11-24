@@ -1,7 +1,8 @@
 import curses
+import random
+
 import display
 import grid
-import random
 
 
 class Battle:
