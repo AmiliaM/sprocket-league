@@ -1,4 +1,6 @@
 import random
+import itertools
+import numpy
 
 
 class Grid:
@@ -25,7 +27,6 @@ class Grid:
             for y in range(self.size[1])
             if self.grid[x][y] == self.nil
         ]
-        print(points)
         return self.add(a, *random.choice(points))
 
     def draw(self):
@@ -37,28 +38,38 @@ class Grid:
         return s
 
     def move(self, a, dx, dy):
-        pos = self.get_pos(a)
-        if not pos:
-            return False
-        x, y = pos
-        self.grid[x][y] = self.nil
+        # Enumerate moves
+        traj = (1, 0)
+        if dx < 0:
+            traj = (-1, 0)
+            dx = -dx
+        x = [traj for _ in range(dx)]
 
-        x += dx
-        y += dy
-        if x >= self.size[0]:
-            x = self.size[0] - 1
-        elif x < 0:
-            x = 0
+        traj = (0, 1)
+        if dy < 0:
+            traj = (0, -1)
+            dy = -dy
+        y = [traj for _ in range(dy)]
 
-        if y >= self.size[0]:
-            y = self.size[0] - 1
-        elif y < 0:
-            y = 0
+        moves = list(
+            filter(
+                lambda x: x is not None,
+                itertools.chain.from_iterable(itertools.zip_longest(x, y)),
+            )
+        )
 
-        self.grid[x][y] = a[0]
-        self.objects[a] = (x, y)
-
-        return
+        # Walk through moves
+        for delta in moves:
+            pos = self.get_pos(a)
+            if not pos:
+                return False
+            newpos = tuple(numpy.add(pos, delta))
+            if self.get(*newpos) != self.nil:
+                moves = [x for x in moves if x != delta]
+                continue
+            self[pos] = self.nil
+            self[newpos] = a[0]
+            self.objects[a] = newpos
 
     def get(self, x, y):
         if x >= self.size[0] or x < 0 or y >= self.size[1] or y < 0:
@@ -69,3 +80,6 @@ class Grid:
         if a not in self.objects:
             return False
         return self.objects[a]
+
+    def __setitem__(self, tup, val):
+        self.grid[tup[0]][tup[1]] = val
