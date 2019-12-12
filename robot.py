@@ -18,7 +18,7 @@ class Robot:
         if (
             len(self._parts_of_type("chassis")) == 1
             and len(self._parts_of_type("controller")) == 1
-            and self._parts_of_type("power")
+            and self.power() > 0
         ):
             return True
         return False
@@ -30,7 +30,7 @@ class Robot:
         if not self.is_valid:
             return (False, "because it was invalid")
         if not self._parts_of_type("chassis")[0].health > 0:
-            return (False, "because it's chassis was destroyed")
+            return (False, "because its chassis was destroyed")
         return (True, "")
 
     # Part methods
@@ -40,18 +40,18 @@ class Robot:
             return self._parts_of_type("power")
         return False
 
-    def brain(self):
+    def controller(self):
         if (
             self.is_valid()
             and not self._parts_of_type("controller")[0].is_destroyed()
-            and self.powers()
+            and self.power() > 0
         ):
             return self._parts_of_type("controller")[0]
         return False
 
-    def locomotions(self):
-        if self.powers() and self.brain() and self._parts_of_type("locomotion"):
-            return self._parts_of_type("locomotion")
+    def movers(self):
+        if self.power() > 0 and self.controller() and self._parts_of_type("mover"):
+            return self._parts_of_type("mover")
         return False
 
     def weighted_parts(self):
@@ -82,6 +82,11 @@ class Robot:
 
     def size(self):
         return sum(map(lambda p: p.size, self.parts))
+
+    def power(self):
+        return sum(
+            [x.power for x in self._parts_of_type("generator") if not x.is_destroyed()]
+        )
 
     # Helper methods
 

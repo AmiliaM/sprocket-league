@@ -1,0 +1,13 @@
+{
+    "name": "titanium",
+    "health": 1000,
+    "weight_mult": 2,
+    "rigidity": 7,
+    "hardness": 10,
+    "cost_mult": 1.8,
+    "tools": 500,
+    "flammable": false,
+    "meltable": false,
+    "damage_mult": 1.2,
+    "mover": true
+}

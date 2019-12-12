@@ -21,6 +21,21 @@ class Battle:
     def in_progress(self):
         return sum(map(int, map(lambda x: x.is_alive(), self.combatants))) > 1
 
+    def calculate_hit(self, weapon, target):
+        damage = weapon.damage + random.randint(
+            -(weapon.damage // 8), weapon.damage // 8
+        )
+
+        hit_chance = 100
+        if target.size < 40:
+            hit_chance = (target.size * 100) // 40
+        hit = random.randint(0, 100)
+
+        if hit_chance > hit:
+            return damage
+        else:
+            return 0
+
     def run(self, stdscr):
         # Init grid
         g_size = (10, 10)
@@ -63,26 +78,20 @@ class Battle:
                 if not c.is_alive():
                     continue
 
-                if not c.brain():
-                    log.addstr(
-                        f"Robot {c.name} can't take a turn!\n", curses.color_pair(1)
-                    )
+                if not c.controller():
+                    log.addstr(f"{c.name} can't take a turn!\n", curses.color_pair(1))
                     continue
 
                 # Process movement
-                if not c.locomotions():
-                    log.addstr(
-                        f"Robot {c.name} is unable to move!\n", curses.color_pair(1)
-                    )
+                if not c.movers():
+                    log.addstr(f"{c.name} is unable to move!\n", curses.color_pair(1))
                 else:
                     g.move(c.name, random.randint(-1, 1), random.randint(-1, 1))
 
                 # Choose weapon
                 weapon = c.pick_alive_part("weapon")
                 if weapon is None:
-                    log.addstr(
-                        f"Robot {c.name} has no weapons!\n", curses.color_pair(1)
-                    )
+                    log.addstr(f"{c.name} has no weapons!\n", curses.color_pair(1))
                     continue
 
                 # Choose a target robot and part
@@ -92,24 +101,19 @@ class Battle:
 
                 target_part = target.pick_alive_part("any")
 
-                # Calculate damage
-                damage = random.randint(0, 5)
-
-                # Calculate hit chance
-                hit_chance = 100
-                if target_part.size < 5:
-                    hit_chance = 80
-                hit = random.randint(0, 100)
+                hit = self.calculate_hit(weapon, target_part)
 
                 # Report and process hit
-                if hit > hit_chance:
+                if hit < 0:
+                    raise ValueError("Hit reported negative damage")
+                elif hit == 0:
                     log.addstr(
-                        f"Robot {c.name} tries to attack {target.name}'s {target_part.name} with {weapon.name} but misses!\n"
+                        f"{c.name} tries to attack {target.name}'s {target_part.name} with the {weapon.name} but misses!\n"
                     )
                 else:
-                    target_part.take_damage(damage)
+                    target_part.take_damage(hit)
                     log.addstr(
-                        f"Robot {c.name} battered {target.name}'s {target_part.name} with {weapon.name}\n"
+                        f"{c.name} {weapon.verb()} {target.name}'s {target_part.name} with the {weapon.name}\n"
                     )
                     if target_part.is_destroyed():
                         log.addstr(

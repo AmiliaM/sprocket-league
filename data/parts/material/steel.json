@@ -1,0 +1,13 @@
+{
+    "name": "steel",
+    "health": 760,
+    "weight_mult": 1.6,
+    "rigidity": 6,
+    "hardness": 8,
+    "cost_mult": 1.2,
+    "tools": 250,
+    "flammable": false,
+    "meltable": false,
+    "damage_mult": 1.0,
+    "mover": true
+}

@@ -1,0 +1,9 @@
+{
+    "name": "leg",
+    "health_mult": 0.25,
+    "cost": 220,
+    "weight": 150,
+    "size": 25,
+    "speed": 2,
+    "accel": 2
+}

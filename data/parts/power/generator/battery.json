@@ -1,0 +1,8 @@
+{
+    "name": "battery",
+    "health": 50,
+    "cost": 100,
+    "weight": 140,
+    "size": 40,
+    "power": 12
+}

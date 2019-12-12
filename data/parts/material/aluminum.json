@@ -1,0 +1,13 @@
+{
+    "name": "aluminum",
+    "health": 520,
+    "weight_mult": 1,
+    "rigidity": 5,
+    "hardness": 5,
+    "cost_mult": 0.8,
+    "tools": 150,
+    "flammable": false,
+    "meltable": false,
+    "damage_mult": 0.7,
+    "mover": true
+}

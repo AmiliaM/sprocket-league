@@ -1,0 +1,9 @@
+{
+    "name": "propellor",
+    "health_mult": 0.1,
+    "cost": 180,
+    "weight": 150,
+    "size": 70,
+    "speed": 6,
+    "accel": 1
+}

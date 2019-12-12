@@ -1,0 +1,9 @@
+{
+    "name": "mecanum wheel",
+    "health_mult": 0.15,
+    "cost": 60,
+    "weight": 40,
+    "size": 30,
+    "speed": 2,
+    "accel": 2
+}

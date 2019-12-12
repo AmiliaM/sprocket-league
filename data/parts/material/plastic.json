@@ -1,0 +1,13 @@
+{
+    "name": "plastic",
+    "health": 160,
+    "weight_mult": 0.7,
+    "rigidity": 10,
+    "hardness": 4,
+    "cost_mult": 0.5,
+    "tools": 25,
+    "flammable": false,
+    "meltable": true,
+    "damage_mult": 0.5,
+    "mover": true
+}

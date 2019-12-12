@@ -1,0 +1,13 @@
+{
+    "name": "cardboard",
+    "health": 120,
+    "weight_mult": 0.4,
+    "rigidity": 2,
+    "hardness": 2,
+    "cost_mult": 0.3,
+    "tools": 0,
+    "flammable": true,
+    "meltable": false,
+    "damage_mult": 0.1,
+    "mover": false
+}

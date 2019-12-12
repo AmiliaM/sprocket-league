@@ -1,0 +1,12 @@
+{
+    "name": "drill",
+    "health": 0.5,
+    "cost": 150,
+    "weight": 40,
+    "size": 50,
+    "materialable": true,
+    "damage": 70,
+    "damage_type": "cleaving",
+    "range": 2,
+    "rate": 1
+}

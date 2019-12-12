@@ -1,0 +1,13 @@
+{
+    "name": "wood",
+    "health": 240,
+    "weight_mult": 1.3,
+    "rigidity": 3,
+    "hardness": 3,
+    "cost_mult": 0.4,
+    "tools": 50,
+    "flammable": true,
+    "meltable": false,
+    "damage_mult": 0.6,
+    "mover": true
+}
