@@ -51,10 +51,28 @@ def main():
         part.Part.new_generator("data/parts/power/generator/engine.json"),
     ]
 
+    parts2 = [
+        part.Part.new_chassis(
+            "data/parts/material/plastic.json", "data/parts/chassis/contracted.json"
+        ),
+        part.Part.new_controller("data/parts/controller/pi.json"),
+        part.Part.new_mover(
+            "data/parts/material/steel.json", "data/parts/mover/treads.json"
+        ),
+        part.Part.new_mover(
+            "data/parts/material/steel.json", "data/parts/mover/treads.json"
+        ),
+        part.Part.new_weapon(
+            "data/parts/material/plastic.json", "data/parts/weapon/spinner.json"
+        ),
+        part.Part.new_generator("data/parts/power/generator/engine.json"),
+    ]
+
     stupidbot = robot.Robot("Stupidbot 5000", sparts)
     tankbot = robot.Robot("Beef Supreme", tparts)
+    r2 = robot.Robot("r2", parts2)
 
-    b = battle.Battle(stupidbot, tankbot)
+    b = battle.Battle(stupidbot, tankbot, r2)
     curses.wrapper(b.run)
 
 

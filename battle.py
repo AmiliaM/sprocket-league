@@ -21,6 +21,9 @@ class Battle:
     def in_progress(self):
         return sum(map(int, map(lambda x: x.is_alive(), self.combatants))) > 1
 
+    def alive_combatants(self):
+        return [x for x in self.combatants if x.is_alive()]
+
     def calculate_hit(self, weapon, target):
         damage = weapon.damage + random.randint(
             -(weapon.damage // 8), weapon.damage // 8
@@ -74,10 +77,7 @@ class Battle:
             log.addstr("\n")
 
             # Processs turns
-            for c in self.combatants:
-                if not c.is_alive():
-                    continue
-
+            for c in self.alive_combatants():
                 if not c.controller():
                     log.addstr(f"{c.name} can't take a turn!\n", curses.color_pair(1))
                     continue
@@ -95,9 +95,17 @@ class Battle:
                     continue
 
                 # Choose a target robot and part
-                candidates = self.combatants.copy()
+                candidates = self.alive_combatants()
                 candidates.remove(c)
                 target = random.choice(list(candidates))
+
+                # Check target distance
+                if g.get_distance(c.name, target.name) > weapon.range:
+                    log.addstr(
+                        f"{target.name} is out of range of {c.name}'s {weapon.name}\n",
+                        curses.color_pair(1),
+                    )
+                    continue
 
                 target_part = target.pick_alive_part("any")
 
@@ -141,7 +149,7 @@ class Battle:
             # Process keys
             inp = log.getkey()
             if inp == "q":
-                break
+                return
 
         statuses.addstr(
             f"\n\n{[r for r in self.combatants if r.is_alive()][0].name} wins!\n\n",

@@ -124,7 +124,7 @@ class Part:
 
     def status(self):
         if self.health > 0:
-            return f"{self.typ.capitalize()} {self.name}: {self.health} hp\n"
+            return f"{self.typ.capitalize()} {self.name}: {int(self.health)} hp\n"
         return f"{self.typ.capitalize()} {self.name} is broken\n"
 
     def verb(self):

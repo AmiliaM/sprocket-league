@@ -83,5 +83,13 @@ class Grid:
             return False
         return self.objects[a]
 
+    def get_distance(self, a, b):
+        if not a in self.objects or not b in self.objects:
+            return False
+        return abs(
+            (self.objects[a][0] - self.objects[b][0])
+            + (self.objects[a][1] - self.objects[b][1])
+        )
+
     def __setitem__(self, tup, val):
         self.grid[tup[0]][tup[1]] = val
