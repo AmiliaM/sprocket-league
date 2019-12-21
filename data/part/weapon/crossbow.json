@@ -1,0 +1,12 @@
+{
+    "name": "crossbow bolt",
+    "health": 0.6,
+    "weight": 90,
+    "size": 70,
+    "cost": 500,
+    "materialable": true,
+    "damage": 90,
+    "damage_type": "piercing",
+    "range": 15,
+    "rate": 3
+}

@@ -1,0 +1,10 @@
+{
+    "name": "mecanum wheel",
+    "health": 0.15,
+    "weight": 40,
+    "size": 30,
+    "cost": 60,
+    "speed": 2,
+    "accel": 2,
+    "turning": 4
+}

@@ -1,0 +1,10 @@
+{
+    "name": "castor wheel",
+    "health": 0.5,
+    "weight": 20,
+    "size": 15,
+    "cost": 10,
+    "speed": 0,
+    "accel": 0,
+    "turning": 0
+}

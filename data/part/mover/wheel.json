@@ -1,0 +1,10 @@
+{
+    "name": "wheel",
+    "health": 0.35,
+    "weight": 30,
+    "size": 25,
+    "cost": 20,
+    "speed": 3,
+    "accel": 2,
+    "turning": 4
+}

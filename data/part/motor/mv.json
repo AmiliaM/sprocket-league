@@ -1,0 +1,8 @@
+{
+    "name": "MV Motor",
+    "health": 120,
+    "weight": 30,
+    "size": 12,
+    "cost": 60,
+    "power": 8
+}

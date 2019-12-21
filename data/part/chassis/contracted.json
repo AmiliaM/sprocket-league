@@ -1,0 +1,7 @@
+{
+    "name": "chassis",
+    "health": 0.85,
+    "weight": 10,
+    "size": 150,
+    "cost": 240
+}

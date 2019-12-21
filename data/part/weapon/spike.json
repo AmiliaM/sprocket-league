@@ -1,0 +1,12 @@
+{
+    "name": "spike",
+    "health": 0.45,
+    "weight": 80,
+    "size": 40,
+    "cost": 300,
+    "materialable": true,
+    "damage": 60,
+    "damage_type": "piercing",
+    "range": 2,
+    "rate": 2
+}

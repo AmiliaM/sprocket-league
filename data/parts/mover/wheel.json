@@ -1,9 +1,0 @@
-{
-    "name": "wheel",
-    "health_mult": 0.35,
-    "cost": 20,
-    "weight": 30,
-    "size": 25,
-    "speed": 3,
-    "accel": 2
-}

@@ -1,0 +1,10 @@
+{
+    "name": "tank tread",
+    "health": 0.1,
+    "weight": 120,
+    "size": 40,
+    "cost": 160,
+    "speed": 2,
+    "accel": 1,
+    "turning": 8
+}

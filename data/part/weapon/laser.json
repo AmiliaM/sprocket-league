@@ -1,0 +1,12 @@
+{
+    "name": "laser",
+    "health": 100,
+    "weight": 20,
+    "size": 30,
+    "cost": 700,
+    "materialable": false,
+    "damage": 30,
+    "damage_type": "fire",
+    "range": 10,
+    "rate": 2
+}

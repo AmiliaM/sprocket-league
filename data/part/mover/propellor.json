@@ -1,0 +1,10 @@
+{
+    "name": "propellor",
+    "health": 0.1,
+    "weight": 150,
+    "size": 70,
+    "cost": 180,
+    "speed": 6,
+    "accel": 1,
+    "turning": 0
+}

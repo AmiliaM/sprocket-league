@@ -5,7 +5,7 @@ import util
 class Robot:
     # Construction methods
 
-    def __init__(self, name, parts=[]):
+    def __init__(self, name, parts):
         self.name = name
         self.parts = parts
 

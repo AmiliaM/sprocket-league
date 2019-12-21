@@ -1,0 +1,8 @@
+{
+    "name": "HV Motor",
+    "health": 140,
+    "weight": 50,
+    "size": 35,
+    "cost": 150,
+    "power": 12
+}

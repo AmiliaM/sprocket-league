@@ -36,8 +36,7 @@ class Battle:
 
         if hit_chance > hit:
             return damage
-        else:
-            return 0
+        return 0
 
     def run(self, stdscr):
         # Init grid
@@ -112,16 +111,17 @@ class Battle:
                 hit = self.calculate_hit(weapon, target_part)
 
                 # Report and process hit
-                if hit < 0:
-                    raise ValueError("Hit reported negative damage")
-                elif hit == 0:
+                assert hit >= 0
+                if hit == 0:
                     log.addstr(
-                        f"{c.name} tries to attack {target.name}'s {target_part.name} with the {weapon.name} but misses!\n"
+                        f"{c.name} tries to attack {target.name}'s {target_part.name}"
+                        f" with the {weapon.name} but misses!\n"
                     )
                 else:
                     target_part.take_damage(hit)
                     log.addstr(
-                        f"{c.name} {weapon.verb()} {target.name}'s {target_part.name} with the {weapon.name}\n"
+                        f"{c.name} {weapon.verb()} {target.name}'s {target_part.name}"
+                        f" with the {weapon.name}\n"
                     )
                     if target_part.is_destroyed():
                         log.addstr(

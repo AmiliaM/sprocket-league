@@ -1,0 +1,10 @@
+{
+    "name": "leg",
+    "health": 0.25,
+    "weight": 150,
+    "size": 25,
+    "cost": 220,
+    "speed": 2,
+    "accel": 2,
+    "turning": 2
+}

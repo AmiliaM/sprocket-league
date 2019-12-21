@@ -1,0 +1,12 @@
+{
+    "name": "spinner",
+    "health": 0.3,
+    "weight": 50,
+    "size": 80,
+    "cost": 300,
+    "materialable": true,
+    "damage": 120,
+    "damage_type": "slicing",
+    "range": 1,
+    "rate": 1
+}
