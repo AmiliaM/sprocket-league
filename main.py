@@ -27,18 +27,8 @@ def main():
         part.Part("generator", "engine"),
     ]
 
-    parts2 = [
-        part.Part("chassis", "custom", "aluminum"),
-        part.Part("controller", "pi"),
-        part.Part("mover", "legs", "steel"),
-        part.Part("mover", "treads", "steel"),
-        part.Part("weapon", "spinner", "plastic"),
-        part.Part("generator", "engine"),
-    ]
-
     stupidbot = robot.Robot("Stupidbot 5000", sparts)
     tankbot = robot.Robot("Beef Supreme", tparts)
-    r2 = robot.Robot("r2", parts2)
 
     b = battle.Battle(stupidbot, tankbot, r2)
     curses.wrapper(b.run)

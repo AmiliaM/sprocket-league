@@ -27,7 +27,7 @@ class Part:
             if not obj["materialable"]:
                 return
 
-        assert material != None
+        assert material is not None
         with open(f"data/material/{material}.json") as f:
             mat = json.load(f)
 

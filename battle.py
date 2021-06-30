@@ -40,17 +40,17 @@ class Battle:
 
     def run(self, stdscr):
         # Init grid
-        g_size = (10, 10)
-        g = grid.Grid(g_size)
-
-        for r in self.combatants:
-            g.add_rand(r.name)
+        size = (10, 10)
+        g = grid.Grid(size)
+        map(lambda x: g.add_rand(x.name), self.combatants)
 
         # Init displays
         display.init()
         log = curses.newwin(
             curses.LINES, curses.COLS // 4, 0, (curses.COLS - 1) - curses.COLS // 4
         )
+        log.keypad(True)
+        log.scrollok(True)
         statuses = curses.newwin(curses.LINES, curses.COLS // 3, 0, 0)
         arena = curses.newwin(
             g.size[1] * 2,
@@ -59,24 +59,36 @@ class Battle:
             (curses.COLS // 2) - (g.size[0] * 2),
         )
 
-        arena.addstr(g.draw())
-        arena.refresh()
-
-        statuses.clear()
-        statuses.addstr(0, 0, self.status())
-        statuses.refresh()
-
-        # Check quit status before starting
-        inp = log.getkey()
-        if inp == "q":
-            return
-
         # Game loop
         while self.in_progress():
+            # Process displays
             log.addstr("\n")
+            log.refresh()
+
+            statuses.clear()
+            statuses.addstr(0, 0, self.status())
+            statuses.refresh()
+
+            arena.clear()
+            arena.addstr(g.draw())
+            arena.refresh()
+
+            # Event pump
+            inp = log.getkey()
+            if inp == "KEY_UP":
+                log.scroll()
+                continue
+            elif inp == "KEY_DOWN":
+                log.scroll(-1)
+                continue
+            elif inp == "q":
+                return
 
             # Processs turns
-            for c in self.alive_combatants():
+            for c in self.combatants:
+                if not c.is_alive():
+                    continue
+
                 if not c.controller():
                     log.addstr(f"{c.name} can't take a turn!\n", curses.color_pair(1))
                     continue
@@ -98,7 +110,6 @@ class Battle:
                 candidates.remove(c)
                 target = random.choice(list(candidates))
 
-                # Check target distance
                 if g.get_distance(c.name, target.name) > weapon.range:
                     log.addstr(
                         f"{target.name} is out of range of {c.name}'s {weapon.name}\n",
@@ -134,22 +145,6 @@ class Battle:
                             f"{target.name} died because {reason}!\n",
                             curses.color_pair(1),
                         )
-
-            # Process displays
-            log.refresh()
-
-            statuses.clear()
-            statuses.addstr(0, 0, self.status())
-            statuses.refresh()
-
-            arena.clear()
-            arena.addstr(g.draw())
-            arena.refresh()
-
-            # Process keys
-            inp = log.getkey()
-            if inp == "q":
-                return
 
         statuses.addstr(
             f"\n\n{[r for r in self.combatants if r.is_alive()][0].name} wins!\n\n",

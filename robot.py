@@ -18,7 +18,6 @@ class Robot:
         if (
             len(self._parts_of_type("chassis")) == 1
             and len(self._parts_of_type("controller")) == 1
-            and self.power() > 0
         ):
             return True
         return False
